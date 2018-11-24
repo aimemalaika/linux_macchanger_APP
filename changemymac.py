@@ -3,6 +3,13 @@
 import subprocess
 import optparse
 import random
+def change_mac(int_face,mac_val) :
+    print("[+] Changing MAC address for interface "+int_face)
+    subprocess.call(["ifconfig",int_face,"down"])
+    subprocess.call(["ifconfig",int_face,"hw","ether",mac_val])
+    subprocess.call(["ifconfig",int_face,"up"])
+    print("[+] To "+mac_val)
+    print("[#] END TERMINATED")
 
 parser = optparse.OptionParser()
 parser.add_option("-i","--interface",dest="interface",help="interface to change its MAC address")
@@ -31,10 +38,5 @@ else:
     v11 = random.choice('abcdefghijklmnopqrstuvwxyz1234567890')
     v12 = random.choice('abcdefghijklmnopqrstuvwxyz1234567890')
     mac_val = v2+v1+":" +v4+v3+ ":" +v6+v5+ ":" +v7+v8+ ":" +v10+v9+":"+v11+v12
-print("[+] Changing MAC address for interface "+int_face)
-subprocess.call(["ifconfig",int_face,"down"])
-subprocess.call(["ifconfig",int_face,"hw","ether",mac_val])
-subprocess.call(["ifconfig",int_face,"up"])
-print("[+] To "+mac_val)
-print("[#] END TERMINATED")
 
+change_mac(int_face,mac_val)
